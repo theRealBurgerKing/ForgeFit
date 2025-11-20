@@ -1,20 +1,20 @@
 <script setup>
-    // const { hello, handleCloseModal } = defineProps({
-    //     hello: String,
-    //     handleCloseModal: Function
-    // })
+    const { handleCloseModal } = defineProps({
+        handleCloseModal: Function
+    })
+    console.log(handleCloseModal)
 
 </script>
 
 <template>
     <Teleport to="#portal">
-        <!-- <div class="portal-container">
+        <div class="portal-container">
             <div role="button" tabindex="0" @click="handleCloseModal" class="portal-underlay"></div>
             <div class="portal-content">
                 <slot/>
             </div>
-        </div> -->
-        Hello portal
+        </div>
+
     </Teleport>
 </template>
 
