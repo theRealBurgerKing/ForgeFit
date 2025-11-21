@@ -4,7 +4,7 @@
     defineProps({
         handleSelectWorkout: Function,
         firstIncompleteWorkoutIndex: Number,
-        handleResetPlan: Function
+        // handleResetPlan: Function
     })
 
     const workoutTypes = ['Push', 'Pull', 'Legs']

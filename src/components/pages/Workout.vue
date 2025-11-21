@@ -2,7 +2,15 @@
     import { ref, computed } from 'vue'
     import { workoutProgram, exerciseDescriptions } from '../../utils'
     import Portal from '../Portal.vue'
-    const selectedWorkout = 4
+
+    const workoutTypes = ['Push', 'Pull', 'Legs']
+
+    const { data, selectedWorkout } = defineProps({
+        data: Object,
+        selectedWorkout: Number,
+        handleSaveWorkout: Function,
+        isWorkoutComplete: Boolean,
+    })
     let selectedExercise = ref(null)
     const exerciseDescription = computed(() => exerciseDescriptions[selectedExercise.value])
     const { workout, warmup } = workoutProgram[selectedWorkout]
@@ -29,7 +37,7 @@
                 <p>Day {{ selectedWorkout < 9 ? '0' + (selectedWorkout + 1) : (selectedWorkout + 1) }}</p>
                         <i class="fa-solid fa-dumbbell"></i>
             </div>
-            <h2>{{ "PULL" }} Workout</h2>
+            <h2>{{ workoutTypes[selectedWorkout%3] }} Workout</h2>
         </div>
 
         
@@ -71,12 +79,12 @@
                 </div>
                 <p>{{ w.sets }}</p>
                 <p>{{ w.reps }}</p>
-                <input class="grid-weights" placeholder="14kg" type="text" />
+                <input v-model="data[selectedWorkout][w.name]" class="grid-weights" placeholder="14kg" type="text" />
             </div>
         </div>
         <div class="card workout-btns">
             <button @click="handleSaveWorkout">Save & Exit <i class="fa-solid fa-save"></i></button>
-            <button @click="handleSaveWorkout">Complete <i class="fa-solid fa-check"></i></button>
+            <button :disabled="!isWorkoutComplete" @click="handleSaveWorkout">Complete <i class="fa-solid fa-check"></i></button>
         </div>
     </section>
 </template>
