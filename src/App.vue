@@ -3,7 +3,7 @@
   import Layout from './components/layouts/Layout.vue'
   import Dashboard from './components/pages/Dashboard.vue'
   import Workout from './components/pages/Workout.vue'
-  import { ref, computed } from 'vue'
+  import { ref, computed, onMounted } from 'vue'
   import { workoutProgram } from './utils'
 
 
@@ -69,7 +69,15 @@
     data.value = defaultData
     localStorage.removeItem('workouts')
   }
-  
+  onMounted(() => {
+    if (!localStorage) {return}
+    if (localStorage.getItem('workouts')) {
+      // only enter the if block if we find some data saved to the key workouts in localstroage database
+      const savedData = JSON.parse(localStorage.getItem('workouts'))
+      data.value = savedData
+      selectedDisplay.value = 2 // if they have data, then we dont want them landing on the welcome screen every time they enter the app
+    }
+  })
 </script>
 
 <template>
