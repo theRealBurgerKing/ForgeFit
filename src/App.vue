@@ -13,6 +13,11 @@
     //create a for loop where we iterate over every workout
     defaultData[workoutIdx] = {} // initialize the workout data obj
 
+    // 初始化 warmup 练习项
+    for (let e of workoutData.warmup) {
+      defaultData[workoutIdx][e.name] = ''
+    }
+
     // nested loop to loop over every exercise within a workout, and initialize it's input value to an empty string
     for (let e of workoutData.workout) {
       defaultData[workoutIdx][e.name] = ''
